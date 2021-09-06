@@ -1,5 +1,6 @@
 const express = require("express");
 const minionsRouter = express.Router();
+const workRouter = require("./work");
 const {
     createMeeting,
     getAllFromDatabase,
@@ -18,6 +19,8 @@ minionsRouter.param("minionId", (req, res, next, minionId) => {
         res.status(404).send();
     }
 });
+
+minionsRouter.use("/:minionId/work", workRouter);
 
 minionsRouter.get("/", (req, res, next) => {
     const allMinions = getAllFromDatabase("minions");
